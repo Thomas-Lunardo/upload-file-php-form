@@ -4,7 +4,7 @@ $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST"){
 
-    $upload_dir = '/home/lunardo/Téléchargements';
+    $upload_dir = 'public/uploads/';
     $uploadFile = $upload_dir . basename($_FILES['avatar']['name']);
     $extension = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
     $authorizedExtensions = ['jpg', 'png', 'gif', 'webp'];
@@ -20,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
 
     if (empty($errors)) 
     {
+        $uniqueFileName = uniqid('avatar') . '.' .$extension;
+        $uploadFile = $upload_dir . $uniqueFileName;
         move_uploaded_file($_FILES['avatar']['name'], $uploadFile);
 }
 
